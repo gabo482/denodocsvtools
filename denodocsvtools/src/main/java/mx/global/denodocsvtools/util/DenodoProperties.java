@@ -2,7 +2,6 @@ package mx.global.denodocsvtools.util;
 
 import java.io.IOException;
 import java.util.Properties;
-
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 

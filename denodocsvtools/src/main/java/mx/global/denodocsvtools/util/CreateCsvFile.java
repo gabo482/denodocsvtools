@@ -2,20 +2,9 @@ package mx.global.denodocsvtools.util;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.util.*;
-import org.apache.commons.codec.binary.Hex;
-import mx.global.denodocsvtools.entity.*;
-import java.io.BufferedWriter;
+import java.util.List;
+import mx.global.denodocsvtools.entity.Account;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class CreateCsvFile {
 
@@ -23,11 +12,12 @@ public class CreateCsvFile {
 
 		FileWriter writer = null;
 
+		@SuppressWarnings("unused")
 		String idCartera = "";
 		if (!accounts.isEmpty()) {
 			try {
 
-				writer = new FileWriter(new File(fileName), StandardCharsets.UTF_8);
+				writer = new FileWriter(new File(fileName));
 				writer.append("cartera_id");
 				writer.append(',');
 				writer.append("cc_id_c");
@@ -132,22 +122,21 @@ public class CreateCsvFile {
 	}
 
 	public static String clearCharactersUnicode(String s) {
-if (s!=null)
-		if (s.contains("\u00C3") || s.contains("\u00D1") || s.contains("\u00D3") || s.contains("\u00C9")
-				|| s.contains("\u00DA") || s.contains("\u00C1") || s.contains("\u00CD") 
-				|| s.contains("\u0026")||s.contains("\u0040")
-				|| s.contains("\u002C")) {
-			s = s.replace("\u0026", "");
-			s = s.replace("\u00C1", "A");
-			s = s.replace("\u00C9", "E");
-			s = s.replace("\u00CD", "I");
-			s = s.replace("\u00D3", "O");
-			s = s.replace("\u00DA", "U");
-			s = s.replace("\u00C3\u2018", "N");
-			s = s.replace("\u00D1", "N");
-			s = s.replace("\u0040", "");
-			s = s.replace("\u002C", "");
-		}
+		if (s != null)
+			if (s.contains("\u00C3") || s.contains("\u00D1") || s.contains("\u00D3") || s.contains("\u00C9")
+					|| s.contains("\u00DA") || s.contains("\u00C1") || s.contains("\u00CD") || s.contains("\u0026")
+					|| s.contains("\u0040") || s.contains("\u002C")) {
+				s = s.replace("\u0026", "");
+				s = s.replace("\u00C1", "A");
+				s = s.replace("\u00C9", "E");
+				s = s.replace("\u00CD", "I");
+				s = s.replace("\u00D3", "O");
+				s = s.replace("\u00DA", "U");
+				s = s.replace("\u00C3\u2018", "N");
+				s = s.replace("\u00D1", "N");
+				s = s.replace("\u0040", "");
+				s = s.replace("\u002C", "");
+			}
 
 		return s;
 	}
@@ -158,6 +147,7 @@ if (s!=null)
 			return false;
 		}
 		try {
+			@SuppressWarnings("unused")
 			double d = Double.parseDouble(strNum);
 		} catch (NumberFormatException nfe) {
 			return false;
