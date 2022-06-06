@@ -6,14 +6,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import mx.global.denodocsvtools.entity.Account;
 import mx.global.denodocsvtools.util.*;
 
-import java.io.UnsupportedEncodingException;
-//import java.net.URLEncoder;
-import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
 
 public class AccountsDaoImpl {
 
