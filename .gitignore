@@ -1,3 +1,11 @@
+#sql files
+*.sql
+#config files
+*.properties
+#  eclipse ide files
+.classpath
+.project
+
 # Compiled class file
 *.class
 
