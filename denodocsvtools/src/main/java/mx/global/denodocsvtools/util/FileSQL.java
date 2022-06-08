@@ -25,7 +25,7 @@ public class FileSQL {
 		
 		try {
 			data = readFromInputStream(inputStream);
-			System.out.println(data);			
+			//System.out.println(data);			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

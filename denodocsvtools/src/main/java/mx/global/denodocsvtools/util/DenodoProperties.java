@@ -16,7 +16,7 @@ public class DenodoProperties {
 	
 	public  DenodoProperties  () {
 		
-		Resource resource = new ClassPathResource("resources/db.properties");
+		Resource resource = new ClassPathResource("resources/denododb.properties");
 		Properties propiedades = new Properties();
 		try {
 			propiedades.load(resource.getInputStream());

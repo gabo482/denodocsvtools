@@ -23,7 +23,7 @@ public class App {
 
 	public String getLocation() {
 		String location="";
-		Resource resource = new ClassPathResource("resources/path.properties");
+		Resource resource = new ClassPathResource("resources/filePath.properties");		
 		Properties propiedades = new Properties();
 		try {
 			propiedades.load(resource.getInputStream());
@@ -46,13 +46,15 @@ public class App {
 		
 	public static void main(String[] args) {
 		App app = new App();
-		List<Account> list = new ArrayList<>();
-		String location =app.getLocation();
+		List<Account> accounts = new ArrayList<>();
+		String location = app.getLocation();
 		AccountsDaoImpl dao = new AccountsDaoImpl();
-		list = dao.getAll();
-		
-		CreateCsvFile.generateCsvFile(location,list);
-		
+		accounts = dao.getAll();
+
+		CreateCsvFile.generateCsvFile(location, accounts);
 		System.out.println(location);
+
+		dao.insertAll(accounts);
+
 	}
 }
