@@ -86,30 +86,30 @@ public class AccountsDaoImpl {
 		String v;
 		int cnt = 1;
 		if (insertDetCarga()) {
-			for (Account a : accounts) {
-				StringBuilder sb = new StringBuilder();
-				//sb.append("( nextval('id')"); //cnt
-				sb.append("(");
-				sb.append(cnt);
-				sb.append(",(select last_value from carga_id)");
-				sb.append(",#cartera_id");
-				sb.append(",'#cc_id__c'");
-				sb.append(",'#Name'");
-				sb.append(",'#CC_Nombre_del_Cliente_o_Razon_Social__c'");
-				sb.append(",'#CE_RFC__c'");
-				sb.append(",'#CE_Region__c'");
-				sb.append(",'#CS_PropietarioCliente_Comercial__c'");
-				sb.append(",'#CS_PropietarioCliente_Servicios__c'");
-				sb.append(",'#SP_DR9_Encuesta__c'");
-				sb.append(",'#SPDR9_Estatus_Aplicacion_de_Pago__c'");
-				sb.append(",'#CS_Segmento__c'");
-				sb.append(",'#CS_ClienteVIP__c'");
-				sb.append(",'#cs_subdireccion_propietarioCliente__c'");
-				sb.append(",'#Cs_gerencia_propietarioCliente__c'");
-				sb.append(",'#CE_TipoRFC__c'");
-				sb.append(",'#Type'");
-				sb.append(",'#CC_DCTSTATUS__C'");
-				sb.append(",'#RecordTypeId')");
+			StringBuilder sb = new StringBuilder();
+			//sb.append("( nextval('id')"); //cnt
+			sb.append("(");
+			sb.append(cnt);
+			sb.append(",(select last_value from carga_id)");
+			sb.append(",#cartera_id");
+			sb.append(",'#cc_id__c'");
+			sb.append(",'#Name'");
+			sb.append(",'#CC_Nombre_del_Cliente_o_Razon_Social__c'");
+			sb.append(",'#CE_RFC__c'");
+			sb.append(",'#CE_Region__c'");
+			sb.append(",'#CS_PropietarioCliente_Comercial__c'");
+			sb.append(",'#CS_PropietarioCliente_Servicios__c'");
+			sb.append(",'#SP_DR9_Encuesta__c'");
+			sb.append(",'#SPDR9_Estatus_Aplicacion_de_Pago__c'");
+			sb.append(",'#CS_Segmento__c'");
+			sb.append(",'#CS_ClienteVIP__c'");
+			sb.append(",'#cs_subdireccion_propietarioCliente__c'");
+			sb.append(",'#Cs_gerencia_propietarioCliente__c'");
+			sb.append(",'#CE_TipoRFC__c'");
+			sb.append(",'#Type'");
+			sb.append(",'#CC_DCTSTATUS__C'");
+			sb.append(",'#RecordTypeId')");
+			for (Account a : accounts) {				
 				v = sb.toString();
 				v = v.replace("#cartera_id", a.getCartera_id());
 				v = v.replace("#cc_id__c", a.getCc_id_c());
