@@ -129,5 +129,19 @@ public class Account {
 	public void setRecordTypeId(String recordTypeId) {
 		RecordTypeId = recordTypeId;
 	}
+	@Override
+	public String toString() {
+		return "Account [cartera_id=" + cartera_id + ", cc_id_c=" + cc_id_c + ", Name=" + Name
+				+ ", CC_Nombre_del_Cliente_o_Razon_Social__c=" + CC_Nombre_del_Cliente_o_Razon_Social__c
+				+ ", CE_RFC__c=" + CE_RFC__c + ", CE_Region__c=" + CE_Region__c
+				+ ", CS_PropietarioCliente_Comercial__c=" + CS_PropietarioCliente_Comercial__c
+				+ ", CS_PropietarioCliente_Servicios__c=" + CS_PropietarioCliente_Servicios__c + ", SP_DR9_Encuesta__c="
+				+ SP_DR9_Encuesta__c + ", SPDR9_Estatus_Aplicacion_de_Pago__c=" + SPDR9_Estatus_Aplicacion_de_Pago__c
+				+ ", CS_Segmento__c=" + CS_Segmento__c + ", CS_ClienteVIP__c=" + CS_ClienteVIP__c
+				+ ", cs_subdireccion_propietarioCliente__c=" + cs_subdireccion_propietarioCliente__c
+				+", CE_TipoRFC__c="
+				+ CE_TipoRFC__c + ", Type=" + Type + ", CC_DCTSTATUS__C=" + CC_DCTSTATUS__C + ", RecordTypeId="
+				+ RecordTypeId + "]";
+	}
 
 }

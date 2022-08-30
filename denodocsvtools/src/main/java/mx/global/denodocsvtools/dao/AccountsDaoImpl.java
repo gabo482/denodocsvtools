@@ -45,10 +45,10 @@ public class AccountsDaoImpl {
 				account.setCE_RFC__c(rs.getString("CE_RFC__c"));
 				account.setCE_Region__c(rs.getString("CE_Region__c"));
 				account.setCS_PropietarioCliente_Comercial__c(rs.getString("CS_PropietarioCliente_Comercial__c"));
-				account.setCS_PropietarioCliente_Servicios__c(rs.getString("CS_PropietarioCliente_Servicios__c"));
+				account.setCS_PropietarioCliente_Servicios__c(rs.getString("CS_PropietarioCliente_Servicios__c")==null?"":rs.getString("CS_PropietarioCliente_Servicios__c"));
 				account.setSP_DR9_Encuesta__c(rs.getString("SP_DR9_Encuesta__c"));
 				account.setSPDR9_Estatus_Aplicacion_de_Pago__c(rs.getString("SPDR9_Estatus_Aplicacion_de_Pago__c"));
-				account.setCS_Segmento__c(rs.getString("CS_Segmento__c"));
+				account.setCS_Segmento__c(rs.getString("CS_Segmento__c")==null?"":rs.getString("CS_Segmento__c"));
 				account.setCS_ClienteVIP__c(rs.getString("CS_ClienteVIP__c"));
 				account.setCs_subdireccion_propietarioCliente__c(rs.getString("cs_subdireccion_propietarioCliente__c"));
 				account.setCs_gerencia_propietarioCliente__c(rs.getString("Cs_gerencia_propietarioCliente__c"));
@@ -62,7 +62,7 @@ public class AccountsDaoImpl {
 
 			connection.close();
 		} catch (ClassNotFoundException | SQLException e) {
-
+			System.out.println(e.getMessage());
 		}
 
 		// ;
@@ -86,36 +86,37 @@ public class AccountsDaoImpl {
 		String v;
 		int cnt = 1;
 		if (insertDetCarga()) {
-			StringBuilder sb = new StringBuilder();
-			//sb.append("( nextval('id')"); //cnt
-			sb.append("(");
-			sb.append(cnt);
-			sb.append(",(select last_value from carga_id)");
-			sb.append(",#cartera_id");
-			sb.append(",'#cc_id__c'");
-			sb.append(",'#Name'");
-			sb.append(",'#CC_Nombre_del_Cliente_o_Razon_Social__c'");
-			sb.append(",'#CE_RFC__c'");
-			sb.append(",'#CE_Region__c'");
-			sb.append(",'#CS_PropietarioCliente_Comercial__c'");
-			sb.append(",'#CS_PropietarioCliente_Servicios__c'");
-			sb.append(",'#SP_DR9_Encuesta__c'");
-			sb.append(",'#SPDR9_Estatus_Aplicacion_de_Pago__c'");
-			sb.append(",'#CS_Segmento__c'");
-			sb.append(",'#CS_ClienteVIP__c'");
-			sb.append(",'#cs_subdireccion_propietarioCliente__c'");
-			sb.append(",'#Cs_gerencia_propietarioCliente__c'");
-			sb.append(",'#CE_TipoRFC__c'");
-			sb.append(",'#Type'");
-			sb.append(",'#CC_DCTSTATUS__C'");
-			sb.append(",'#RecordTypeId')");
-			for (Account a : accounts) {				
+			
+			for (Account a : accounts) {
+				StringBuilder sb = new StringBuilder();
+				//sb.append("( nextval('id')"); //cnt
+				sb.append("(");
+				sb.append(cnt);
+				sb.append(",(select last_value from carga_id)");
+				sb.append(",#cartera_id");
+				sb.append(",'#cc_id__c'");
+				sb.append(",'#Name'");
+				sb.append(",'#CC_Nombre_del_Cliente_o_Razon_Social__c'");
+				sb.append(",'#CE_RFC__c'");
+				sb.append(",'#CE_Region__c'");
+				sb.append(",'#CS_PropietarioCliente_Comercial__c'");
+				sb.append(",'#CS_PropietarioCliente_Servicios__c'");
+				sb.append(",'#SP_DR9_Encuesta__c'");
+				sb.append(",'#SPDR9_Estatus_Aplicacion_de_Pago__c'");
+				sb.append(",'#CS_Segmento__c'");
+				sb.append(",'#CS_ClienteVIP__c'");
+				sb.append(",'#cs_subdireccion_propietarioCliente__c'");
+				sb.append(",'#Cs_gerencia_propietarioCliente__c'");
+				sb.append(",'#CE_TipoRFC__c'");
+				sb.append(",'#Type'");
+				sb.append(",'#CC_DCTSTATUS__C'");
+				sb.append(",'#RecordTypeId')");
 				v = sb.toString();
 				v = v.replace("#cartera_id", a.getCartera_id());
 				v = v.replace("#cc_id__c", a.getCc_id_c());
-				v = v.replace("#Name", a.getName());
+				v = v.replace("#Name", clearCharactersUnicode(a.getName()));
 				v = v.replace("#CC_Nombre_del_Cliente_o_Razon_Social__c",
-						a.getCC_Nombre_del_Cliente_o_Razon_Social__c());
+								clearCharactersUnicode(a.getCC_Nombre_del_Cliente_o_Razon_Social__c()));
 				v = v.replace("#CE_RFC__c", a.getCE_RFC__c());
 				v = v.replace("#CE_Region__c", a.getCE_Region__c());
 				v = v.replace("#CS_PropietarioCliente_Comercial__c", a.getCS_PropietarioCliente_Comercial__c());
@@ -141,6 +142,7 @@ public class AccountsDaoImpl {
 				cnt++;
 			}
 			insertSQL.append(";");
+			CreateFileSql.write(insertSQL);
 			//System.out.println(insertSQL.toString());
 		} // insertDetCarga
 
@@ -156,7 +158,7 @@ public class AccountsDaoImpl {
 			prepsInsertProduct.execute();
 
 		} catch (ClassNotFoundException | SQLException e) {
-
+			System.out.println(e.getMessage());
 		}
 
 	}
@@ -175,10 +177,24 @@ public class AccountsDaoImpl {
 
 			return true;
 		} catch (ClassNotFoundException | SQLException e) {
-
+			
+			System.out.println(e.getMessage());
 		}
 
 		return false;
 	}
+	
+	public static String clearCharactersUnicode(String s) {
+		if (s != null)
+			if (s.contains("\u0027")) {
+				System.out.println(s);
+				s = s.replace("\u0027","\u0027\u0027\u0027\u0027");
+				System.out.println(s);
+			}
+
+		return s;
+	}
+	
+	
 
 }

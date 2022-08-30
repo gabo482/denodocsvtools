@@ -28,7 +28,7 @@ public class ConnDB {
 
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url, user, password);
-			System.out.println("SUCCESS : " + driver);
+			System.out.println("SUCCESS : " + url);
 
 		} catch (SQLException e) {
 			throw new Error("Problem", e);
